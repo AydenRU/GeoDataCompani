@@ -1,0 +1,21 @@
+
+services:
+
+  db:
+    image: postgres:17.0
+
+    restart: always
+
+    environment:
+#      HOST_DB: ${HOST_DB}
+      POSTGRES_USER: ${USERNAME_DB}
+      POSTGRES_PASSWORD: ${PASSWORD_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5435:5432
+
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
