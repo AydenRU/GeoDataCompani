@@ -2,11 +2,11 @@
 
 from fastapi import Request ,HTTPException
 
-from app.repositories.check_activate import test
+from app.repositories.check_activate import check_connection_db
 
 async def check_connect_with_db(request: Request):
     try:
-        answer = await test(request.app.state.session_db)
+        answer = await check_connection_db(request.app.state.session_db)
 
         return HTTPException(status_code=200, detail='База подключена', headers= answer)
     except Exception as error:
