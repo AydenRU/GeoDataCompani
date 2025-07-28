@@ -2,7 +2,7 @@ from fastapi import APIRouter, Request
 
 from fastapi import HTTPException
 
-from app.repositories.check_activate import test
+from app.services.check import check_connect_with_db
 
 
 check_work_app_router = APIRouter(prefix='/health', tags=['Check'])
@@ -10,12 +10,9 @@ check_work_app_router = APIRouter(prefix='/health', tags=['Check'])
 
 
 @check_work_app_router.get('/check_status_db')
-async def check_db(request: Request):
+async def endpoint_check_db(request: Request):
     """Проверка на подключение к БД"""
-    try:
-        answer = await test(request.app.state.session_db)
+    return await check_connect_with_db(request)
 
-        return HTTPException(status_code=200, detail='База подключена', headers= answer)
-    except Exception as error:
 
-        return HTTPException(status_code=400, detail='Подключение отсутствует')
+
