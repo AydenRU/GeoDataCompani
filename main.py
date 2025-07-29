@@ -7,7 +7,10 @@ from app.repositories.database import db, async_session
 
 from app.endpoints.check_work_app import  check_work_app_router
 
+from app.db.loading_data import to_go_load_test_data
+
 from app.models.models import Base
+from app.repositories.database import postgis
 
 # from app.models.models import metadata_db
 
@@ -16,10 +19,15 @@ async def lifespans(app: FastAPI):
     print("Начало подключения..")
     app.state.engine = db
     app.state.session_db = async_session
+
+    await postgis(app.state.session_db)
+
     async with app.state.engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
-    print('база подключена')
+
+    await to_go_load_test_data(app.state.session_db)
+    print('база подключена и данные загружены')
     yield
     print("Конец подключения...")
 
@@ -38,4 +46,4 @@ app = FastAPI(lifespan=lifespans)
 app.include_router(check_work_app_router)
 
 if __name__ == '__main__':
-    uvicorn.run('app.main:app')
+    uvicorn.run('main:app')

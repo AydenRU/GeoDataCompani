@@ -2,8 +2,6 @@ from sqlalchemy.orm import Mapped
 
 from sqlalchemy import  text
 
-from app.models.models import UserOrm
-
 
 async def check_connection_db(create_db):
     """Проверка подключения к БД"""

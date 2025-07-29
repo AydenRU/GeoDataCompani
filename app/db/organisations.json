@@ -1,0 +1,393 @@
+
+[
+    {
+      "id": 1,
+      "builders_id": 9,
+      "name": "Organization_1",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61313835117405,
+          55.751056426592065
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "builders_id": 5,
+      "name": "Organization_2",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61413366963422,
+          55.7504387088953
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "builders_id": 14,
+      "name": "Organization_3",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.6134070138888,
+          55.752156524552845
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "builders_id": 14,
+      "name": "Organization_4",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.6130528647062,
+          55.75236099686562
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "builders_id": 19,
+      "name": "Organization_5",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61325874592998,
+          55.753106931077774
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "builders_id": 7,
+      "name": "Organization_6",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61122237643665,
+          55.751253657694825
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "builders_id": 8,
+      "name": "Organization_7",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61218983308903,
+          55.75116486961057
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "builders_id": 14,
+      "name": "Organization_8",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61309919923145,
+          55.75205491874216
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "builders_id": 14,
+      "name": "Organization_9",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61308138142378,
+          55.752380643835416
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "builders_id": 13,
+      "name": "Organization_10",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61235170896033,
+          55.75236102734155
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "builders_id": 6,
+      "name": "Organization_11",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.610442725174345,
+          55.75120935152021
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "builders_id": 17,
+      "name": "Organization_12",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61111393385403,
+          55.75334865680262
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "builders_id": 16,
+      "name": "Organization_13",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61029637054296,
+          55.75309102059407
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "builders_id": 1,
+      "name": "Organization_14",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61020534318121,
+          55.75009455892442
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "builders_id": 19,
+      "name": "Organization_15",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61312248269766,
+          55.75343735254803
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "builders_id": 15,
+      "name": "Organization_16",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61426930879872,
+          55.75212515368081
+        ]
+      }
+    },
+    {
+      "id": 17,
+      "builders_id": 11,
+      "name": "Organization_17",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61029247632917,
+          55.752099120952245
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "builders_id": 2,
+      "name": "Organization_18",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.611148541917295,
+          55.75039074819222
+        ]
+      }
+    },
+    {
+      "id": 19,
+      "builders_id": 11,
+      "name": "Organization_19",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61044627121598,
+          55.75207330167788
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "builders_id": 10,
+      "name": "Organization_20",
+      "type_org": "Construction",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61405532223144,
+          55.751377643317845
+        ]
+      }
+    },
+    {
+      "id": 21,
+      "builders_id": 5,
+      "name": "Organization_21",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61422722768733,
+          55.75034374492773
+        ]
+      }
+    },
+    {
+      "id": 22,
+      "builders_id": 12,
+      "name": "Organization_22",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61136624923189,
+          55.75218806528817
+        ]
+      }
+    },
+    {
+      "id": 23,
+      "builders_id": 1,
+      "name": "Organization_23",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61035636174833,
+          55.7501416339192
+        ]
+      }
+    },
+    {
+      "id": 24,
+      "builders_id": 15,
+      "name": "Organization_24",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61424814194684,
+          55.7521497083612
+        ]
+      }
+    },
+    {
+      "id": 25,
+      "builders_id": 11,
+      "name": "Organization_25",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61040052593337,
+          55.75212443041763
+        ]
+      }
+    },
+    {
+      "id": 26,
+      "builders_id": 20,
+      "name": "Organization_26",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.614366572215694,
+          55.75336791675044
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "builders_id": 9,
+      "name": "Organization_27",
+      "type_org": "IT",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61343116749591,
+          55.75115421470916
+        ]
+      }
+    },
+    {
+      "id": 28,
+      "builders_id": 16,
+      "name": "Organization_28",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.610066638146606,
+          55.7530828126295
+        ]
+      }
+    },
+    {
+      "id": 29,
+      "builders_id": 16,
+      "name": "Organization_29",
+      "type_org": "Finance",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.610385141312484,
+          55.753181383601365
+        ]
+      }
+    },
+    {
+      "id": 30,
+      "builders_id": 17,
+      "name": "Organization_30",
+      "type_org": "Retail",
+      "geolocations": {
+        "type": "Point",
+        "coordinates": [
+          37.61130988502716,
+          55.753244158897125
+        ]
+      }
+    }
+  ]

@@ -1,6 +1,5 @@
 
-
-from fastapi import Request ,HTTPException
+from fastapi import Request, HTTPException
 
 from app.repositories.check_activate import check_connection_db
 

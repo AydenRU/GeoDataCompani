@@ -4,7 +4,7 @@ from sqlalchemy import text
 from app.core.conf import setting_db
 
 # # для типизации
-# from  sqlalchemy.ext.asyncio.engine import AsyncEngine
+from  sqlalchemy.ext.asyncio import AsyncSession
 
 
 
@@ -15,6 +15,10 @@ db = create_async_engine(
 )
 async_session = async_sessionmaker(db)
 
+async def postgis(session_db: AsyncSession):
+        async with session_db() as conn:
+            await conn.execute(text("CREATE EXTENSION IF NOT EXISTS postgis;"))
+            await conn.commit()
 
 
 

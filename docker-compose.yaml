@@ -2,7 +2,7 @@
 services:
 
   db:
-    image: postgres:17.0
+    image: postgis/postgis:17-3.4
 
     restart: always
 
