@@ -1,4 +1,4 @@
-from sqlalchemy import select
+from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.models import OrganizationsOrm
@@ -38,7 +38,7 @@ async def info_organization_by_type(type_org: str, session: AsyncSession) -> lis
     return org
 
 
-async def info_building(builders_id: int, session: AsyncSession) -> list:
+async def info_organization_by_building(builders_id: int, session: AsyncSession) -> list:
 
     # async with session() as conn:
     #     answer = await conn.execute("""
@@ -52,5 +52,19 @@ async def info_building(builders_id: int, session: AsyncSession) -> list:
         answer = await conn.execute(stmt)
 
     org = answer.scalars().all()
+
+    return org
+
+
+async def info_organization_by_name(name: str, session: AsyncSession) -> list:
+
+    async with session() as conn:
+        stmt = text("""
+                    SELECT * FROM organizations 
+                        WHERE name LIKE :name
+                    """)
+        answer = await conn.execute(stmt, {'name' : f"%{name}%"})
+
+    org = answer.fetchall()
 
     return org

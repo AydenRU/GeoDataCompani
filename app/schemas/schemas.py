@@ -12,7 +12,6 @@ class OrganizationsS(BaseModel):
         "from_attributes": True
     }
 
-
 class OrganizationsSId(BaseModel):
     id: int
 
