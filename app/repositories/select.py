@@ -21,25 +21,36 @@ async def info_organization_by_id(id: int, session: AsyncSession) -> tuple:
     return org
 
 
-async def info_organization_by_type(type_org: int, session: AsyncSession) -> tuple:
+async def info_organization_by_type(type_org: str, session: AsyncSession) -> list:
+
+    # async with session() as conn:
+    #     answer = await conn.execute("""
+    #                                 SELECT * FROM organizations
+    #                                     WHERE type_org = :type_org
+    #                                 """, {'type_org': type_org})
+    # answer = await answer.all()
+    async with session() as conn:
+        stmt = select(OrganizationsOrm).where(OrganizationsOrm.type_org == type_org)
+        answer = await conn.execute(stmt)
+
+    org = answer.scalars().all()
+
+    return org
+
+
+async def info_building(builders_id: int, session: AsyncSession) -> list:
+
+    # async with session() as conn:
+    #     answer = await conn.execute("""
+    #                                 SELECT * FROM organizations
+    #                                     WHERE builders_id = :id
+    #                                 """, {'id': id})
+    # answer = await answer.all()
 
     async with session() as conn:
-        answer = await conn.execute("""
-                                    SELECT * FROM organizations
-                                        WHERE id = :id
-                                    """, {'type_org': type_org})
-    answer = await answer.all()
+        stmt = select(OrganizationsOrm).where(OrganizationsOrm.builders_id == builders_id)
+        answer = await conn.execute(stmt)
 
-    return answer
+    org = answer.scalars().all()
 
-
-async def info_building(id: int, session: AsyncSession) -> list:
-
-    async with session() as conn:
-        answer = await conn.execute("""
-                                    SELECT * FROM organizations
-                                        WHERE builders_id = :id
-                                    """, {'id': id})
-    answer = await answer.all()
-
-    return answer
+    return org
