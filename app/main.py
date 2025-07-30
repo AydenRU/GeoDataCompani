@@ -21,7 +21,7 @@ async def lifespans(app: FastAPI):
     app.state.engine = db
     app.state.session_db = async_session
 
-    await postgis(app.state.session_db)
+    # await postgis(app.state.session_db)
 
     async with app.state.engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -47,5 +47,5 @@ app = FastAPI(lifespan=lifespans)
 app.include_router(check_work_app_router)
 app.include_router(router_organizations)
 
-if __name__ == '__main__':
-    uvicorn.run('app.main:app')
+# if __name__ == '__main__':
+#     uvicorn.run('app.main:app')

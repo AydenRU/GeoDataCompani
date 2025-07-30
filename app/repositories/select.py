@@ -1,6 +1,7 @@
 from sqlalchemy import select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+
 from app.models.models import OrganizationsOrm
 
 from app.schemas.schemas import Geolocator
