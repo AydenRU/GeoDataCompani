@@ -3,6 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.models import OrganizationsOrm
 
+from app.schemas.schemas import Geolocator
+
 
 async def info_organization_by_id(id: int, session: AsyncSession) -> tuple:
 
@@ -64,6 +66,24 @@ async def info_organization_by_name(name: str, session: AsyncSession) -> list:
                         WHERE name LIKE :name
                     """)
         answer = await conn.execute(stmt, {'name' : f"%{name}%"})
+
+    org = answer.fetchall()
+
+    return org
+
+
+async def info_organization_by_geo_radius(data: Geolocator, session: AsyncSession) -> list:
+
+    async with session() as conn:
+        stmt = text("""
+                    SELECT * FROM organizations
+                        WHERE ST_DWithin(
+                            geolocations,
+                            ST_MakePoint(:longitude, :latitude)::geography,
+                            :radius
+                        );
+                    """)
+        answer = await conn.execute(stmt, {"longitude" : data.longitude, "latitude": data.latitude, "radius" : data.radius})
 
     org = answer.fetchall()
 

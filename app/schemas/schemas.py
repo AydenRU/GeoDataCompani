@@ -22,3 +22,7 @@ class BuildingSId(BaseModel):
     id: int
 
 
+class Geolocator(BaseModel):
+    latitude: float
+    longitude: float
+    radius: Optional[float]

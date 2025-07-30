@@ -6,10 +6,12 @@ from typing import Any, Coroutine
 from app.repositories.select import (info_organization_by_id,
                                      info_organization_by_type,
                                      info_organization_by_building,
-                                     info_organization_by_name)
+                                     info_organization_by_name,
+                                     info_organization_by_geo_radius)
 
 from fastapi import Request
-from app.schemas.schemas import OrganizationsS, OrganizationsSType
+from app.schemas.schemas import OrganizationsS
+from app.schemas.schemas import Geolocator
 
 
 async def get_organization_by_id(id: int, request: Request) -> OrganizationsS:
@@ -42,9 +44,18 @@ async def get_organization_by_building_id(builders_id: int, request: Request) ->
     return org_schema
 
 
-
 async def get_organization_by_name(name: str, request: Request) -> list[OrganizationsS]:
     answer = await info_organization_by_name(name, request.app.state.session_db)
+
+    if not answer:
+        raise HTTPException(status_code=404, detail='Данные не найдены')
+
+    org_schema = [OrganizationsS.model_validate(i) for i in answer]
+    return org_schema
+
+
+async def get_organization_by_geo(data: Geolocator, request: Request):
+    answer = await info_organization_by_geo_radius(data, request.app.state.session_db)
 
     if not answer:
         raise HTTPException(status_code=404, detail='Данные не найдены')
