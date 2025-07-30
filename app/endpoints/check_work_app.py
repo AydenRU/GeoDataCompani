@@ -15,4 +15,8 @@ async def endpoint_check_db(request: Request):
     return await check_connect_with_db(request)
 
 
+@check_work_app_router.get('/liveness')
+async def check_app_endpoint():
+        raise HTTPException(status_code=200, detail='Приложение активно')
+
 
