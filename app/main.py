@@ -48,4 +48,4 @@ app.include_router(check_work_app_router)
 app.include_router(router_organizations)
 
 if __name__ == '__main__':
-    uvicorn.run('main:app')
+    uvicorn.run('app.main:app')

@@ -1,5 +1,22 @@
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_USER: ${USERNAME_DB}
+      POSTGRES_PASSWORD: ${PASSWORD_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PORT_DB: ${PORT_DB}
+      HOST_DB: db
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+
 
   db:
     image: postgis/postgis:17-3.4
@@ -7,12 +24,11 @@ services:
     restart: always
 
     environment:
-#      HOST_DB: ${HOST_DB}
       POSTGRES_USER: ${USERNAME_DB}
       POSTGRES_PASSWORD: ${PASSWORD_DB}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - 5435:5432
+      - 5436:5432
 
     volumes:
       - db_data:/var/lib/postgresql/data
