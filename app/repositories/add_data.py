@@ -1,4 +1,3 @@
-
 from shapely.geometry import shape
 
 from geoalchemy2.shape import from_shape

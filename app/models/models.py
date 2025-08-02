@@ -1,5 +1,3 @@
-
-
 from sqlalchemy import Table, Column, MetaData
 from sqlalchemy import  Integer, String
 
@@ -27,23 +25,3 @@ class BuildersOrm(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     geolocations: Mapped[Geometry] = mapped_column(Geometry(geometry_type='POLYGON', srid=4326))
-
-
-
-
-
-
-
-
-
-
-
-
-# metadata_db = MetaData()
-#
-# users = Table(
-#     'users',
-#     metadata_db,
-#     Column('id', Integer, primary_key=True),
-#     Column('name', String)
-# )

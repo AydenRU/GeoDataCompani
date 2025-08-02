@@ -5,7 +5,7 @@ from contextlib import asynccontextmanager
 
 from app.repositories.database import db, async_session
 
-from app.endpoints.check_work_app import  check_work_app_router
+from app.endpoints.check_work_app import  router_check
 from app.endpoints.organizations import  router_organizations
 
 from app.db.loading_data import to_go_load_test_data
@@ -21,7 +21,7 @@ async def lifespans(app: FastAPI):
     app.state.engine = db
     app.state.session_db = async_session
 
-    # await postgis(app.state.session_db)
+    await postgis(app.state.session_db)
 
     async with app.state.engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
@@ -44,7 +44,7 @@ async def lifespans(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespans)
-app.include_router(check_work_app_router)
+app.include_router(router_check)
 app.include_router(router_organizations)
 
 # if __name__ == '__main__':

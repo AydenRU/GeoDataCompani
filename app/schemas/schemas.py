@@ -1,28 +1,17 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
-from typing import Optional, Annotated
+from typing import Optional
 
 class OrganizationsS(BaseModel):
-    id: int
-    builders_id: Optional[int]
-    name: str
-    type_org: str
+    id: int = Field(..., description='Уникальный номер организации')
+    builders_id: Optional[int] = Field(..., description='Уникальный номер здания')
+    name: str =Field(..., description='Имя организации')
+    type_org: str = Field(..., description='Отрасль организации')
 
-    model_config = {
-        "from_attributes": True
-    }
-
-class OrganizationsSId(BaseModel):
-    id: int
-
-class OrganizationsSType(BaseModel):
-    type_org: str
-
-class BuildingSId(BaseModel):
-    id: int
+    model_config = ConfigDict(from_attributes=True)
 
 
 class Geolocator(BaseModel):
-    latitude: float
-    longitude: float
-    radius: Optional[float]
+    latitude: float = Field(..., description='Широта')
+    longitude: float = Field(..., description='Долгота')
+    radius: Optional[float] = Field(..., description='Радиус от точки координат')
