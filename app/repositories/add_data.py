@@ -13,7 +13,7 @@ class AddOrm:
         self.session = session
 
 
-    async def loading_builds(self, data: list, session_db):
+    async def loading_builds(self, data: list):
 
 
         for b in data:
@@ -24,7 +24,7 @@ class AddOrm:
             await self.session .commit()
 
 
-    async def loading_organizations(self, data: list, session_db):
+    async def loading_organizations(self, data: list):
 
         for o in data:
             point = shape(o["geolocations"])
