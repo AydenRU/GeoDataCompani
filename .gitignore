@@ -1,2 +1,4 @@
 .env
-python
+.python
+.idea
+.venv
