@@ -22,8 +22,8 @@ async def lifespans(app: FastAPI):
     app.state.session_db = async_session
 
     await postgis(app.state.session_db)
-
-    await to_go_load_test_data(app.state.session_db)
+    async with app.state.session_db() as session:
+        await to_go_load_test_data(session)
     print('база подключена и данные загружены')
     yield
     print("Конец подключения...")

@@ -1,15 +1,21 @@
-from app.services.handler_json import DecoderFile
+from fastapi.params import Depends
+from sqlalchemy.ext.asyncio import  AsyncSession
+from typing import Annotated
 
+from app.core.session import get_session
+
+from app.services.handler_json import DecoderFile
 
 from app.repositories.add_data import AddOrm
 
 
 
-async def to_go_load_test_data(session_db):
-
+async def to_go_load_test_data(session_db: AsyncSession):
     builds = DecoderFile.unpacking_json('app/db/builds.json')
-    await AddOrm.loading_builds(builds, session_db)
+
+    model = AddOrm(session_db)
+    await model.loading_builds(builds, session_db)
 
     organisations = DecoderFile.unpacking_json('app/db/organisations.json')
-    await AddOrm.loading_organizations(organisations, session_db)
+    await model.loading_organizations(organisations, session_db)
     return 1
