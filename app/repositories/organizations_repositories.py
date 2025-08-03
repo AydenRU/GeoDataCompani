@@ -1,4 +1,4 @@
-from sqlalchemy import select, text, func
+from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from geoalchemy2 import Geometry
 

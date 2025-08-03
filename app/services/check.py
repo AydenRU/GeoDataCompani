@@ -1,11 +1,16 @@
+from typing import Annotated
 
-from fastapi import Request, HTTPException
+from fastapi import HTTPException
+from fastapi.params import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.repositories.check_activate import check_connection_db
+from app.core.session import get_session
+from app.repositories.check_activate import CheckDb
 
-async def check_connect_with_db(request: Request):
+async def check_connect_with_db(request: Annotated[AsyncSession, Depends(get_session)]):
     try:
-        answer = await check_connection_db(request.app.state.session_db)
+        repositories = CheckDb(request)
+        answer = await repositories.check_connection_db()
 
         return HTTPException(status_code=200, detail='База подключена', headers= answer)
     except Exception as error:

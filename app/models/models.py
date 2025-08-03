@@ -1,6 +1,3 @@
-from sqlalchemy import Table, Column, MetaData
-from sqlalchemy import  Integer, String
-
 from sqlalchemy.orm import  DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import  ForeignKey
 from geoalchemy2 import Geometry
@@ -28,4 +25,5 @@ class BuildersOrm(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     geolocations: Mapped[Geometry] = mapped_column(Geometry(geometry_type='POLYGON', srid=4326))
 
-    organizations: Mapped["OrganizationsOrm"] = relationship(back_populates="builder")
+    organizations: Mapped["OrganizationsOrm"] = relationship(back_populates="builder",
+                                                             cascade='all, delete')

@@ -1,11 +1,26 @@
-from sqlalchemy.orm import Mapped
+from sqlalchemy import select, literal_column
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from sqlalchemy import  text
+from app.models.models import BuildersOrm
 
+class CheckDb:
 
-async def check_connection_db(create_db):
-    """Проверка подключения к БД"""
-    async with create_db() as session_db:
-        answer = await session_db.execute(text('SELECT 1'))
+    def __init__(self, session: AsyncSession):
+        self.session = session
+
+    async def check_connection_db(self):
+        """Проверка подключения к БД"""
+
+        answer = await self.session.execute(select(literal_column('1')))
 
         return {'version': str(answer.first())}
+
+    @staticmethod
+    async def check_empy_data_db(session: AsyncSession):
+
+        answer = await session.execute(select(BuildersOrm).limit(1))
+
+        answer = answer.scalars().first()
+        print(answer)
+
+        return True if answer else False

@@ -6,7 +6,8 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.core.conf import setting_db
-from app.models.models import OrganizationsOrm, Base
+
+from app.models.models import BuildersOrm, Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -17,9 +18,8 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-url = setting_db
-config.set_main_option('sqlalchemy.url', url.async_address_URL_DB() + "?async_fallback=True")
 
+config.set_main_option('sqlalchemy.url', setting_db.async_address_URL_DB() + '?async_fallback=True')
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel

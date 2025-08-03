@@ -1,8 +1,4 @@
-from fastapi.params import Depends
 from sqlalchemy.ext.asyncio import  AsyncSession
-from typing import Annotated
-
-from app.core.session import get_session
 
 from app.services.handler_json import DecoderFile
 

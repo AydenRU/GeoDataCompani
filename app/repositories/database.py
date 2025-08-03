@@ -1,16 +1,13 @@
 from sqlalchemy.ext.asyncio import  create_async_engine, async_sessionmaker
 from sqlalchemy import text
 
-from app.core.conf import SettingDB
+from app.core.conf import setting_db
 
 # # для типизации
 from  sqlalchemy.ext.asyncio import AsyncSession
 
-
-setting = SettingDB()
-
 db = create_async_engine(
-        url=setting.async_address_URL_DB(),
+        url=setting_db.async_address_URL_DB(),
         pool_size=5,
         max_overflow=10
 )
