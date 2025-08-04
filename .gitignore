@@ -1,5 +1,5 @@
-.env
-.python
-.idea
-.venv
-__pycache__
+.idea/
+.venv/
+__pycache__/
+.env/
+.python/
