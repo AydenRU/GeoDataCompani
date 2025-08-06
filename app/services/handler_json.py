@@ -9,7 +9,7 @@ class DecoderFile:
         """
         Принимает строку с адресом расположения файла
         :param file:
-        :return: tuple[type(), file]
+        :return: file
         """
         base_dir = os.path.dirname(os.path.abspath(__file__))
         path = os.path.join(base_dir, "..", "db", os.path.basename(file))

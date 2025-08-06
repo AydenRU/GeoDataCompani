@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from fastapi import HTTPException
 from fastapi.params import Depends
 
@@ -13,9 +13,21 @@ from app.schemas.schemas import OrganizationsS, Geolocator
 router_organizations = APIRouter(prefix='/organizations', tags=['get_organization'])
 
 
-@router_organizations.get('/{id_organization}')
+@router_organizations.get('/{id_organization}',
+                          status_code=status.HTTP_200_OK,
+                          summary='Получить информацию об организацию по ID')
 async def get_organization_by_id_endpoint(id_organization: int,
                                           services: Annotated[AsyncSession, Depends(get_session)]) -> OrganizationsS:
+    """
+    Получить информацию об организацию по ID и возвращает организацию
+    Args:
+        id_organization: ID организации.
+        services: AsyncSession
+    Return:
+        OrganizationsS - информация об организации
+    Raise:
+        HTTPException если данные не найдены вернёт 404
+    """
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_id(id_organization)
@@ -23,9 +35,22 @@ async def get_organization_by_id_endpoint(id_organization: int,
         raise error
 
 
-@router_organizations.get('/activity/{type_org}')
+@router_organizations.get('/activity/{type_org}',
+                          status_code=status.HTTP_200_OK,
+                          summary='Получить информацию об организации по виду деятельности')
 async def get_organization_by_type_endpoint(type_org: str,
                                             services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+    """
+    Получить информацию об организациях по виду деятельности и возвращает организации
+    при нахождении совпадений
+    Args:
+        type_org: Вид деятельности
+        services: AsyncSession
+    Return:
+        list[OrganizationsS] - информация об организации
+    Raise:
+        HTTPException если данные не найдены вернёт 404
+    """
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_type(type_org)
@@ -33,9 +58,21 @@ async def get_organization_by_type_endpoint(type_org: str,
         raise error
 
 
-@router_organizations.get('/building/{builders_id}')
+@router_organizations.get('/building/{builders_id}',
+                          status_code=status.HTTP_200_OK,
+                          summary='Получить информацию об организациях по ID здания')
 async def get_organization_by_building_id_endpoint(builders_id: int,
                                                    services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+    """
+    Получить информацию об организациях в здании по ID этого здания
+    Args:
+        builders_id: ID здания
+        services: AsyncSession
+    Return:
+        list[OrganizationsS] - информация об организации\ю
+    Raise:
+        HTTPException если данные не найдены вернёт 404
+    """
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_building_id(builders_id)
@@ -43,8 +80,22 @@ async def get_organization_by_building_id_endpoint(builders_id: int,
         raise error
 
 
-@router_organizations.get('/search/name/{name}')
-async def get_organization_by_name_endpoint(name: str, services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+@router_organizations.get('/search/name/{name}',
+                          status_code=status.HTTP_200_OK,
+                          summary='Получить информацию об организациях по введенному слову/букве ')
+async def get_organization_by_name_endpoint(name: str,
+                                            services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+    """
+    Получить информацию об организациях по введенному слову/букве и возвращает организации
+    при нахождении совпадений
+    Args:
+        name: ID здания
+        services: AsyncSession
+    Return:
+        list[OrganizationsS] - информация об организации\ях
+    Raise:
+        HTTPException если данные не найдены вернёт 404
+    """
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_name(name)
@@ -52,9 +103,24 @@ async def get_organization_by_name_endpoint(name: str, services: Annotated[Async
         raise error
 
 
-@router_organizations.post('/search/geo')
+@router_organizations.post('/search/geo',
+                          status_code=status.HTTP_200_OK,
+                           summary='Получить информацию об организация по заданным координатам и радиусом')
 async def get_organization_by_geo_endpoint(data: Geolocator,
                                            services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+    """
+    Получить информацию об организациях по заданным координатам и радиусу.
+    Args:
+        data:
+            latitude: Широта
+            longitude: Долгота
+            radius: Радиус поиска
+        services: AsyncSession
+    Return:
+        list[OrganizationsS] - информация об организации\ях
+    Raise:
+        HTTPException если данные не найдены вернёт 404
+    """
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_geo(data)

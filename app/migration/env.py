@@ -7,7 +7,7 @@ from alembic import context
 
 from app.core.conf import setting_db
 
-from app.models.models import BuildersOrm, Base
+from app.models.organizations import BuildersOrm, Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
