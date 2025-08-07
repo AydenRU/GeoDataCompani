@@ -14,6 +14,7 @@ router_organizations = APIRouter(prefix='/organizations', tags=['get_organizatio
 
 
 @router_organizations.get('/{id_organization}',
+                          response_model=OrganizationsS,
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организацию по ID')
 async def get_organization_by_id_endpoint(id_organization: int,
@@ -36,6 +37,7 @@ async def get_organization_by_id_endpoint(id_organization: int,
 
 
 @router_organizations.get('/activity/{type_org}',
+                          response_model=list[OrganizationsS],
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организации по виду деятельности')
 async def get_organization_by_type_endpoint(type_org: str,
@@ -59,6 +61,7 @@ async def get_organization_by_type_endpoint(type_org: str,
 
 
 @router_organizations.get('/building/{builders_id}',
+                          response_model=list[OrganizationsS],
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организациях по ID здания')
 async def get_organization_by_building_id_endpoint(builders_id: int,
@@ -81,6 +84,7 @@ async def get_organization_by_building_id_endpoint(builders_id: int,
 
 
 @router_organizations.get('/search/name/{name}',
+                          response_model=list[OrganizationsS],
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организациях по введенному слову/букве ')
 async def get_organization_by_name_endpoint(name: str,
@@ -104,7 +108,8 @@ async def get_organization_by_name_endpoint(name: str,
 
 
 @router_organizations.post('/search/geo',
-                          status_code=status.HTTP_200_OK,
+                           response_model=list[OrganizationsS],
+                           status_code=status.HTTP_200_OK,
                            summary='Получить информацию об организация по заданным координатам и радиусом')
 async def get_organization_by_geo_endpoint(data: Geolocator,
                                            services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
