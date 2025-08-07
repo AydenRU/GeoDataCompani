@@ -29,6 +29,7 @@ async def get_organization_by_id_endpoint(id_organization: int,
     Raise:
         HTTPException если данные не найдены вернёт 404
     """
+
     try:
         services = OrganizationGet(services)
         return await services.get_organization_by_id(id_organization)
