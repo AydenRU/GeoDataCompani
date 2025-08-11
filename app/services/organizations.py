@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from redis import Redis
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -10,20 +11,29 @@ from app.schemas.schemas import Geolocator
 
 class OrganizationGet:
 
-    def __init__(self, session: AsyncSession):
+    def __init__(self, session: AsyncSession, redis: Redis=None):
         self.session = session
+        self.redis = redis
 
     async def get_organization_by_id(self, id: int) -> OrganizationsS:
         """Получить информацию об организацию по ID и возвращает организацию"""
         repositories = OrganizationsSelectDB(self.session)
-
-        answer = await repositories.info_organization_by_id(id)
+        answer = await self.redis.get(f'{id}')
+        if not answer:
+            print('Данных нету в редисе')
+            answer = await repositories.info_organization_by_id(id)
+            org_schema = OrganizationsS.model_validate(answer)
+            print(org_schema)
+            await self.redis.set(f'{id}', org_schema.model_dump_json())
+            print('данные загружены')
+            return org_schema
+        else:
+            print('Данные взяты из редиса')
 
         if not answer:
             raise HTTPException(status_code=404, detail='Данные не найдены')
 
-        org_schema = OrganizationsS.model_validate(answer)
-        return org_schema
+        return OrganizationsS.model_dump(answer)
 
 
     async def get_organization_by_type(self, type_org: str) -> list[OrganizationsS]:

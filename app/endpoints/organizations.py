@@ -6,9 +6,11 @@ from typing import Annotated
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.core.session import get_session
+from app.core.session import get_session, get_redis
 from app.services.organizations import OrganizationGet
 from app.schemas.schemas import OrganizationsS, Geolocator
+
+from redis.asyncio import Redis
 
 router_organizations = APIRouter(prefix='/organizations', tags=['get_organization'])
 
@@ -18,12 +20,14 @@ router_organizations = APIRouter(prefix='/organizations', tags=['get_organizatio
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организацию по ID')
 async def get_organization_by_id_endpoint(id_organization: int,
-                                          services: Annotated[AsyncSession, Depends(get_session)]) -> OrganizationsS:
+                                          services: Annotated[AsyncSession, Depends(get_session)],
+                                          redis: Annotated[Redis, Depends(get_redis)]) -> OrganizationsS:
     """
     Получить информацию об организацию по ID и возвращает организацию
     Args:
         id_organization: ID организации.
         services: AsyncSession
+        conn_redis: Radis
     Return:
         OrganizationsS - информация об организации
     Raise:
@@ -31,7 +35,7 @@ async def get_organization_by_id_endpoint(id_organization: int,
     """
 
     try:
-        services = OrganizationGet(services)
+        services = OrganizationGet(services, redis)
         return await services.get_organization_by_id(id_organization)
     except HTTPException as error:
         raise error

@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
 from app.repositories.database import db, async_session
+from app.core.conf import setting_redis
 
 from app.endpoints.check_work_app import router_check
 from app.endpoints.organizations import router_organizations
@@ -16,6 +17,8 @@ async def lifespans(app: FastAPI):
     """функция запускаемая в начале работы FastAPI"""
     app.state.engine = db
     app.state.session_db = async_session
+    app.state.redis = setting_redis.async_connection_redis()
+
 
     async with app.state.session_db() as session:
         if not await CheckDb.check_empy_data_db(session):
