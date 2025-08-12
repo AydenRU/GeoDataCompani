@@ -13,10 +13,9 @@ class SettingDB(BaseSettings):
     model_config  = SettingsConfigDict(env_file='.env',
                                        extra="ignore")
 
-
     def async_address_URL_DB(self):
-        print(self.username_db)
         return f'postgresql+asyncpg://{self.username_db}:{self.password_db}@{self.host_db}:{self.port_db}/{self.name_db}'
+
 
 class SettingRedis(BaseSettings):
     host_redis: str = Field('localhost', alias='HOST_REDIS')
@@ -24,7 +23,6 @@ class SettingRedis(BaseSettings):
 
     model_config = SettingsConfigDict(env_file='.env',
                                       extra="ignore")
-
 
     def async_connection_redis(self):
         return async_redis.Redis(host=self.host_redis, port=self.port_redis, decode_responses=True)
