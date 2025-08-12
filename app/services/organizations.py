@@ -54,7 +54,7 @@ class OrganizationGet:
         return org_schema
 
 
-    async def get_organization_by_building_id(self, builders_id: int) -> list[OrganizationsS] | str:
+    async def get_organization_by_building_id(self, builders_id: int) -> list[OrganizationsS]:
         """
         Получить информацию об организациях в здании по ID этого здания
         """
@@ -73,14 +73,14 @@ class OrganizationGet:
         return org_schema
 
 
-    async def get_organization_by_name(self, name: str) -> list[OrganizationsS] | str:
+    async def get_organization_by_name(self, name: str) -> list[OrganizationsS]:
         """Получить информацию об организациях по введенному слову/букве и возвращает организации
         при нахождении совпадений"""
         repositories = OrganizationsSelectDB(self.session)
         answer = await self.redis.get(str(name))
         if answer:
             await self.redis.expire(str(name), 60)
-            return [OrganizationsS.model_validate(i) for i in json.loads(answer)]
+            return json.loads(answer)
 
         answer = await repositories.info_organization_by_name(name)
 
@@ -91,7 +91,7 @@ class OrganizationGet:
         return org_schema
 
 
-    async def get_organization_by_geo(self, data: Geolocator) -> list[OrganizationsS] | str:
+    async def get_organization_by_geo(self, data: Geolocator) -> list[OrganizationsS] :
         """Получить информацию об организациях по заданным координатам и радиусу."""
         repositories = OrganizationsSelectDB(self.session)
         name = json.dumps(data.model_dump())
