@@ -12,6 +12,6 @@ class OrganizationsS(BaseModel):
 
 
 class Geolocator(BaseModel):
-    latitude: float = Field(..., description='Широта', le=-90, ge=90)
-    longitude: float = Field(..., description='Долгота', le=-180, ge=180)
+    latitude: float = Field(..., description='Широта', le=90, ge=-90)
+    longitude: float = Field(..., description='Долгота', le=180, ge=-180)
     radius: Optional[float] = Field(..., description='Радиус от точки координат')

@@ -27,7 +27,7 @@ async def get_organization_by_id_endpoint(id_organization: int,
     Args:
         id_organization: ID организации.
         services: AsyncSession
-        conn_redis: Radis
+        redis: Radis
     Return:
         OrganizationsS - информация об организации
     Raise:
@@ -46,20 +46,22 @@ async def get_organization_by_id_endpoint(id_organization: int,
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организации по виду деятельности')
 async def get_organization_by_type_endpoint(type_org: str,
-                                            services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+                                            services: Annotated[AsyncSession, Depends(get_session)],
+                                            redis: Annotated[Redis, Depends(get_redis)]) -> list[OrganizationsS]:
     """
     Получить информацию об организациях по виду деятельности и возвращает организации
     при нахождении совпадений
     Args:
         type_org: Вид деятельности
         services: AsyncSession
+        redis: Radis
     Return:
         list[OrganizationsS] - информация об организации
     Raise:
         HTTPException если данные не найдены вернёт 404
     """
     try:
-        services = OrganizationGet(services)
+        services = OrganizationGet(services, redis)
         return await services.get_organization_by_type(type_org)
     except HTTPException as error:
         raise error
@@ -70,19 +72,21 @@ async def get_organization_by_type_endpoint(type_org: str,
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организациях по ID здания')
 async def get_organization_by_building_id_endpoint(builders_id: int,
-                                                   services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+                                                   services: Annotated[AsyncSession, Depends(get_session)],
+                                                   redis: Annotated[Redis, Depends(get_redis)]) -> list[OrganizationsS]:
     """
     Получить информацию об организациях в здании по ID этого здания
     Args:
         builders_id: ID здания
         services: AsyncSession
+        redis: Redis
     Return:
         list[OrganizationsS] - информация об организации\ю
     Raise:
         HTTPException если данные не найдены вернёт 404
     """
     try:
-        services = OrganizationGet(services)
+        services = OrganizationGet(services, redis)
         return await services.get_organization_by_building_id(builders_id)
     except HTTPException as error:
         raise error
@@ -93,20 +97,22 @@ async def get_organization_by_building_id_endpoint(builders_id: int,
                           status_code=status.HTTP_200_OK,
                           summary='Получить информацию об организациях по введенному слову/букве ')
 async def get_organization_by_name_endpoint(name: str,
-                                            services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+                                            services: Annotated[AsyncSession, Depends(get_session)],
+                                            redis: Annotated[Redis, Depends(get_redis)]) -> list[OrganizationsS]:
     """
     Получить информацию об организациях по введенному слову/букве и возвращает организации
     при нахождении совпадений
     Args:
         name: ID здания
         services: AsyncSession
+        redis: Redis
     Return:
         list[OrganizationsS] - информация об организации\ях
     Raise:
         HTTPException если данные не найдены вернёт 404
     """
     try:
-        services = OrganizationGet(services)
+        services = OrganizationGet(services, redis)
         return await services.get_organization_by_name(name)
     except HTTPException as error:
         raise error
@@ -117,7 +123,8 @@ async def get_organization_by_name_endpoint(name: str,
                            status_code=status.HTTP_200_OK,
                            summary='Получить информацию об организация по заданным координатам и радиусом')
 async def get_organization_by_geo_endpoint(data: Geolocator,
-                                           services: Annotated[AsyncSession, Depends(get_session)]) -> list[OrganizationsS]:
+                                           services: Annotated[AsyncSession, Depends(get_session)],
+                                           redis: Annotated[Redis, Depends(get_redis)]) -> list[OrganizationsS]:
     """
     Получить информацию об организациях по заданным координатам и радиусу.
     Args:
@@ -126,13 +133,14 @@ async def get_organization_by_geo_endpoint(data: Geolocator,
             longitude: Долгота
             radius: Радиус поиска
         services: AsyncSession
+        redis: Redis
     Return:
         list[OrganizationsS] - информация об организации\ях
     Raise:
         HTTPException если данные не найдены вернёт 404
     """
     try:
-        services = OrganizationGet(services)
+        services = OrganizationGet(services, redis)
         return await services.get_organization_by_geo(data)
     except HTTPException as error:
         raise error
