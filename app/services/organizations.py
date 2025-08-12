@@ -80,7 +80,7 @@ class OrganizationGet:
         answer = await self.redis.get(str(name))
         if answer:
             await self.redis.expire(str(name), 60)
-            return json.loads(answer)
+            return [OrganizationsS.model_validate(i) for i in json.loads(answer)]
 
         answer = await repositories.info_organization_by_name(name)
 
