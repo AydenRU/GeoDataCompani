@@ -19,7 +19,7 @@ async def check_users(data_user: AuthorisationUser) -> dict:
     return: какие-то данные
     """
     if data_user.username == 'ayden' and data_user.password == 'ayden':
-        token = auth.create_access_token(uid=data_user.username, data={'username': data_user.username)
+        token = auth.create_access_token(uid=data_user.username, data={'username': data_user.username})
         # Response.set_cookie(auth.name, token)
         return {'token': token}
 
