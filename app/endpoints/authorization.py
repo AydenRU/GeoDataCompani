@@ -20,7 +20,8 @@ async def check_users(data_user: AuthorisationUser) -> dict:
     """
     if data_user.username == 'ayden' and data_user.password == 'ayden':
         token = auth.create_access_token(uid=data_user.username, data={'username': data_user.username})
-        # Response.set_cookie(auth.name, token)
-        return {'token': token}
+        Response.set_cookie(auth.config.JWT_ACCESS_COOKIE_NAME, token)
+        return {'token': token,
+                'text': 'Ты вошел'}
 
     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
