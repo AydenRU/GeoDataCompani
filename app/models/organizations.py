@@ -18,7 +18,7 @@ class OrganizationsOrm(Base):
 
     builder: Mapped["BuildersOrm"] = relationship(back_populates="organizations")
 
-    user: Mapped['UserOrm'] = relationship(back_populates='organizations', secondary='user_and_organizations')
+    useraccaunt: Mapped['UserOrm'] = relationship(back_populates='organizations', secondary='users_and_organizations')
 
 
 class BuildersOrm(Base):

@@ -17,7 +17,7 @@ class OrganizationGet:
         self.session = session
         self.redis = redis
 
-    async def get_organization_by_id(self, id: int) -> OrganizationsS | dict :
+    async def get_organization_by_id(self, id: int) -> OrganizationsS | dict:
         """Получить информацию об организацию по ID и возвращает организацию"""
         repositories = OrganizationsSelectDB(self.session)
         answer = await self.redis.get(f'organization:id:{id}')

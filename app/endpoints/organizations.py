@@ -1,20 +1,44 @@
 from fastapi import APIRouter, status
-from fastapi import HTTPException
+from fastapi import HTTPException, Request
 from fastapi.params import Depends
 
 from typing import Annotated
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
+
+from app.core.authorisation import auth, check_access_token
+
 from app.core.session import get_session, get_redis
-from app.services.organizations import OrganizationGet
+from app.services.organizations_services import OrganizationGet
+from app.services.user_organizations_services import UserOrganizationsServices
+
 from app.schemas.schemas import OrganizationsS, Geolocator
 
 from redis.asyncio import Redis
 
+
+
 router_organizations = APIRouter(prefix='/organizations', tags=['get_organization'])
 
 
+@router_organizations.get('/users/list_organization',
+                          response_model=list[OrganizationsS],
+                          summary='Выводит список организаций принадлежащих пользователю')
+async def get_organization_list_users(
+                                    data_token: Annotated[dict, Depends(check_access_token)],
+                                    session: Annotated[AsyncSession, Depends(get_session)]
+                                    ):
+    """Возвращает список организаций пользователя"""
+    try:
+        service = UserOrganizationsServices(session)
+        return await service.get_list_organization(data_token)
+
+    except Exception as error:
+        raise error
+
+
+# Получение данных без входа в аккаунт
 @router_organizations.get('/{id_organization}',
                           response_model=OrganizationsS,
                           status_code=status.HTTP_200_OK,

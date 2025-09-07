@@ -2,12 +2,14 @@ from fastapi import FastAPI
 
 from contextlib import asynccontextmanager
 
+
 from app.repositories.database import db, async_session
 from app.core.conf import setting_redis
 
 from app.endpoints.check_work_app import router_check
 from app.endpoints.organizations import router_organizations
 from app.endpoints.authorization import router_authorization
+from app.endpoints.registration import router_registration
 
 from app.repositories.check_activate import CheckDb
 from app.db.loading_data import to_go_load_test_data
@@ -31,3 +33,4 @@ app = FastAPI(lifespan=lifespans)
 app.include_router(router_check)
 app.include_router(router_organizations)
 app.include_router(router_authorization)
+app.include_router(router_registration)
