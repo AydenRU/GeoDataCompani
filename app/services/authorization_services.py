@@ -30,16 +30,26 @@ class AuthorizationServices:
         if not my_hash.verify(data.password, orm_schema.password):
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
 
-        access_token = auth.create_access_token(uid=orm_schema.username, data={'id': orm_schema.id},
+        access_token = auth.create_access_token(uid=str(orm_schema.id),
+                                                data={'id': orm_schema.id},
                                                 expiry=timedelta(minutes=1))
-        refresh_token = auth.create_refresh_token(expiry=timedelta(minutes=10), uid='jwt_refresh_token',
-                                                  data={'id': orm_schema.id} )
+        refresh_token = auth.create_refresh_token(uid='jwt_refresh_token',
+                                                  data={'id': orm_schema.id},
+                                                  expiry=timedelta(minutes=10))
 
         response.set_cookie(key=auth.config.JWT_ACCESS_COOKIE_NAME, value=access_token, httponly=True)
         response.set_cookie(key='jwt_refresh_token', value=refresh_token, httponly=True)
 
         return [access_token, refresh_token]
 
+    async def generation_new_access_token(self, data_refresh_token: dict, response: Response) -> str:
+        """Генерация Access token"""
 
+        access_token = auth.create_access_token(uid=str(data_refresh_token['id']),
+                                                data={'id': data_refresh_token['id']},
+                                                expiry=(timedelta(minutes=1)))
 
-
+        response.set_cookie(key=auth.config.JWT_ACCESS_COOKIE_NAME,
+                            value=access_token,
+                            httponly=True)
+        return access_token

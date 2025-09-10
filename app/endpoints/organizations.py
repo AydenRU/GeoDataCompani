@@ -7,7 +7,7 @@ from typing import Annotated
 from sqlalchemy.ext.asyncio import AsyncSession
 
 
-from app.core.authorisation import auth, check_access_token
+from app.core.authorisation import CheckToken
 
 from app.core.session import get_session, get_redis
 from app.services.organizations_services import OrganizationGet
@@ -22,11 +22,14 @@ from redis.asyncio import Redis
 router_organizations = APIRouter(prefix='/organizations', tags=['get_organization'])
 
 
+### Получение данных со входом в аккаунт
+
+
 @router_organizations.get('/users/list_organization',
                           response_model=list[OrganizationsS],
                           summary='Выводит список организаций принадлежащих пользователю')
 async def get_organization_list_users(
-                                    data_token: Annotated[dict, Depends(check_access_token)],
+                                    data_token: Annotated[dict, Depends(CheckToken.check_access_token)],
                                     session: Annotated[AsyncSession, Depends(get_session)]
                                     ):
     """Возвращает список организаций пользователя"""
@@ -38,7 +41,9 @@ async def get_organization_list_users(
         raise error
 
 
-# Получение данных без входа в аккаунт
+### Получение данных без входа в аккаунт
+
+
 @router_organizations.get('/{id_organization}',
                           response_model=OrganizationsS,
                           status_code=status.HTTP_200_OK,

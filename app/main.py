@@ -8,7 +8,7 @@ from app.core.conf import setting_redis
 
 from app.endpoints.check_work_app import router_check
 from app.endpoints.organizations import router_organizations
-from app.endpoints.authorization import router_authorization
+from app.endpoints.token import router_authorization
 from app.endpoints.registration import router_registration
 
 from app.repositories.check_activate import CheckDb

@@ -19,6 +19,7 @@ services:
       HOST_DB: db
       HOST_REDIS: redis
       PORT_REDIS: 6379
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
     volumes:
       - .:/app
 
