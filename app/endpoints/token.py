@@ -6,8 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.services.authorization_services import AuthorizationServices
 
-from app.core.authorisation import auth, CheckToken
-from app.core.hash import my_hash
+from app.core.authorisation import CheckToken
 from app.core.session import get_session
 
 from app.schemas.login import AuthorisationUser

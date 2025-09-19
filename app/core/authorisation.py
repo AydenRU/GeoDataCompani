@@ -13,6 +13,8 @@ config = AuthXConfig(JWT_SECRET_KEY=os.getenv('JWT_SECRET_KEY'),
 
 auth = AuthX(config)
 
+
+
 class CheckToken:
 
     @staticmethod
